@@ -91,4 +91,7 @@ class WaterViewModel(application: Application) : AndroidViewModel(application) {
     fun consumirSalvo() {
         salvo = false
     }
+       fun novoRegistro() {
+        registro = null
+    }
 }
