@@ -9,7 +9,7 @@ internal class AppDatabase(context: Context) : SQLiteOpenHelper(
     context.applicationContext,
     File(context.noBackupFilesDir, "gestao_alimentacao.db").absolutePath,
     null,
-    4
+    5
 ) {
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("""
@@ -56,9 +56,20 @@ internal class AppDatabase(context: Context) : SQLiteOpenHelper(
             modo_preparo TEXT NOT NULL
             )
         """.trimIndent())
+
+        db.execSQL("""
+            CREATE TABLE agua(
+            id TEXT PRIMARY KEY,
+            usuario_id INTEGER NOT NULL REFERENCES usuarios(id),
+            quantidade_ml INTEGER NOT NULL CHECK(quantidade_ml BETWEEN 1 AND 5000),
+            horario TEXT NOT NULL,
+            anotacao TEXT NOT NULL
+            )
+        """.trimIndent())
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        db.execSQL("DROP TABLE IF EXISTS agua")
         db.execSQL("DROP TABLE IF EXISTS refeicoes")
         db.execSQL("DROP TABLE IF EXISTS receitas")
         db.execSQL("DROP TABLE IF EXISTS usuarios")
