@@ -85,6 +85,23 @@ fun AppNavigation(
             )
         }
 
+                composable<Agua> {
+            WaterScreen(
+                waterViewModel = viewModel(),
+                onAddClick = { navController.navigate(AddEditWater()) },
+                onEditClick = { id -> navController.navigate(AddEditWater(id)) }
+            )
+        }
+
+        composable<AddEditWater> { back ->
+            val rota = back.toRoute<AddEditWater>()
+            AddEditWaterScreen(
+                waterViewModel = viewModel(),
+                waterId = rota.waterId,
+                voltar = { navController.popBackStack() }
+            )
+        }
+        
         composable<Perfil> {
             ProfileScreen(
                 authViewModel = viewModel(),
