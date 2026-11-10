@@ -81,7 +81,8 @@ fun AppNavigation(
             RecipeScreen(
                 recipeViewModel = viewModel(),
                 onAddRecipeClick = { navController.navigate(AddEditRecipe()) },
-                onEditRecipeClick = { id -> navController.navigate(AddEditRecipe(id)) }
+                onEditRecipeClick = { id -> navController.navigate(AddEditRecipe(id)) },
+                onSugestoesClick = { navController.navigate(Sugestoes) }
             )
         }
 
@@ -102,6 +103,30 @@ fun AppNavigation(
             )
         }
         
+        composable<Peso> {
+            WeightScreen(
+                weightViewModel = viewModel(),
+                onAddClick = { navController.navigate(AddEditWeight()) },
+                onEditClick = { id -> navController.navigate(AddEditWeight(id)) }
+            )
+        }
+
+        composable<AddEditWeight> { back ->
+            val rota = back.toRoute<AddEditWeight>()
+            AddEditWeightScreen(
+                weightViewModel = viewModel(),
+                weightId = rota.weightId,
+                voltar = { navController.popBackStack() }
+            )
+        }
+
+        composable<Sugestoes> {
+            SuggestionsScreen(
+                suggestionsViewModel = viewModel(),
+                voltar = { navController.popBackStack() }
+            )
+        }
+
         composable<Perfil> {
             ProfileScreen(
                 authViewModel = viewModel(),

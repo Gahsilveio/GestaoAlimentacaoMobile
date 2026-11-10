@@ -31,3 +31,12 @@ data object Agua
 
 @Serializable
 data class AddEditWater(val waterId: String? = null)
+
+@Serializable
+data object Peso
+
+@Serializable
+data class AddEditWeight(val weightId: String? = null)
+
+@Serializable
+data object Sugestoes
